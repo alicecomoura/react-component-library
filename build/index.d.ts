@@ -1,2 +1,2 @@
-import TestComponent from "./test-component/test-component";
-export { TestComponent };
+import { Button, Input } from "./modules/design-system/components";
+export { Button, Input };

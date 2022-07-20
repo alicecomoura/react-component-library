@@ -35,15 +35,22 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".test-component {\n  background-color: white;\n  border: 1px solid black;\n  padding: 16px;\n  width: 360px;\n  text-align: center;\n}\n.test-component .heading {\n  font-size: 64px;\n}\n.test-component.test-component-secondary {\n  background-color: black;\n  color: white;\n}";
-styleInject(css_248z);
+var css_248z$1 = "* {\n  font-family: 'Arial', sans-serif; }\n\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  outline: 0; }\n\n.button {\n  background-color: #ffffff;\n  padding: 16px;\n  width: 360px;\n  text-align: center;\n  border-radius: 6px;\n  border: none;\n  font-weight: 600; }\n  .button.button-default {\n    background-color: #ffffff;\n    color: #000; }\n  .button.button-disabled {\n    background-color: #D5D5D5;\n    color: white; }\n  .button.button-warning {\n    background-color: #faa300;\n    color: white; }\n  .button.button-danger {\n    background-color: #ff675c;\n    color: white; }\n  .button.button-success {\n    background-color: #3fc8bd;\n    color: white; }\n";
+styleInject(css_248z$1);
 
-var TestComponent = function (_a) {
-    var theme = _a.theme;
-    return (React__default["default"].createElement("div", { "data-testid": "test-component", className: "test-component test-component-".concat(theme) },
-        React__default["default"].createElement("h1", { className: "heading" }, "I'm the test component"),
-        React__default["default"].createElement("h2", null, "Made with love by Harvey")));
+var Button = function (_a) {
+    var theme = _a.theme, children = _a.children;
+    return (React__default["default"].createElement("button", { "data-testid": "button", className: "button button-".concat(theme) }, children));
 };
 
-exports.TestComponent = TestComponent;
+var css_248z = "* {\n  font-family: 'Arial', sans-serif; }\n\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  outline: 0; }\n\n.input {\n  background-color: #ffffff;\n  padding: 16px;\n  width: 360px;\n  text-align: center;\n  border-radius: 6px;\n  border: none;\n  font-weight: 600; }\n  .input.input-default {\n    background-color: #ffffff;\n    color: #000; }\n  .input.input-disabled {\n    background-color: #D5D5D5;\n    color: white; }\n  .input.input-warning {\n    background-color: #faa300;\n    color: white; }\n  .input.input-danger {\n    background-color: #ff675c;\n    color: white; }\n  .input.input-success {\n    background-color: #3fc8bd;\n    color: white; }\n";
+styleInject(css_248z);
+
+var Input = function (_a) {
+    var theme = _a.theme, type = _a.type, placeholder = _a.placeholder;
+    return (React__default["default"].createElement("input", { "data-testid": "input", className: "input input-".concat(theme), type: type, placeholder: placeholder }));
+};
+
+exports.Button = Button;
+exports.Input = Input;
 //# sourceMappingURL=index.js.map
