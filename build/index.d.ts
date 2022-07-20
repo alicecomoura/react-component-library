@@ -1,2 +1,2 @@
-import { Button } from "./modules/design-system/components/button/button";
-export { Button };
+import { Button, Input } from "./modules/design-system/components";
+export { Button, Input };

@@ -1,0 +1,36 @@
+@import "../../theme/app.scss";
+
+.button {
+  background-color: $white;
+  padding: 16px;
+  width: 360px;
+  text-align: center;
+  border-radius: 6px;
+  border: none;
+  font-weight: $font-semiBold;
+
+  &.button-default {
+    background-color: $white;
+    color: $black;
+  }
+
+  &.button-disabled {
+    background-color: $gray;
+    color: white;
+  }
+
+  &.button-warning {
+    background-color: $yellow-500;
+    color: white;
+  }
+
+  &.button-danger {
+    background-color: $red-500;
+    color: white;
+  }
+
+  &.button-success {
+    background-color: $green-500;
+    color: white;
+  }
+}
