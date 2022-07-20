@@ -28,6 +28,7 @@ export const Layout = () => {
         <div className="container__component">
         <p>Input</p>
           <Input theme="default" type="text"/>
+          <Input theme="disabled" type="text"/>
         </div>
       </div>
     </div>
