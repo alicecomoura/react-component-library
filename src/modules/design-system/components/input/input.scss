@@ -1,0 +1,36 @@
+@import "../../theme/app.scss";
+
+.input {
+  background-color: $white;
+  padding: 16px;
+  width: 360px;
+  text-align: center;
+  border-radius: 6px;
+  border: none;
+  font-weight: $font-semiBold;
+
+  &.input-default {
+    background-color: $white;
+    color: $black;
+  }
+
+  &.input-disabled {
+    background-color: $gray;
+    color: white;
+  }
+
+  &.input-warning {
+    background-color: $yellow-500;
+    color: white;
+  }
+
+  &.input-danger {
+    background-color: $red-500;
+    color: white;
+  }
+
+  &.input-success {
+    background-color: $green-500;
+    color: white;
+  }
+}

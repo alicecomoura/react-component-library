@@ -1,0 +1,36 @@
+@import "../../theme/app.scss";
+
+.search-input-button {
+  background-color: $white;
+  padding: 16px;
+  width: 360px;
+  text-align: center;
+  border-radius: 6px;
+  border: none;
+  font-weight: $font-semiBold;
+
+  &.search-input-button-default {
+    background-color: $white;
+    color: $black;
+  }
+
+  &.search-input-button-disabled {
+    background-color: $gray;
+    color: white;
+  }
+
+  &.search-input-button-warning {
+    background-color: $yellow-500;
+    color: white;
+  }
+
+  &.search-input-button-danger {
+    background-color: $red-500;
+    color: white;
+  }
+
+  &.search-input-button-success {
+    background-color: $green-500;
+    color: white;
+  }
+}
