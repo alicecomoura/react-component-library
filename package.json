@@ -43,6 +43,7 @@
   },
   "dependencies": {},
   "scripts": {
+    "create-component": "node ./scripts/create-component.js",
     "build": "rollup -c",
     "storybook": "start-storybook -p 6006",
     "storybook:export": "build-storybook",
