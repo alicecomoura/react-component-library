@@ -1,4 +1,4 @@
-import { Button, Input} from 'react-sass'
+import { Button, Input} from 'react-component-lib20'
 
 import './styles.scss'
 

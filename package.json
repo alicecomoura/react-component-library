@@ -1,5 +1,5 @@
 {
-  "name": "react-sass",
+  "name": "react-component-lib20",
   "version": "1.0.0",
   "main": "build/index.js",
   "module": "build/index.es.js",
@@ -49,5 +49,6 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "prepublishOnly": "npm run build"
+    
   }
 }
