@@ -1,4 +1,4 @@
-const fs = require("fs");
+const errorMessage = require("./error");
 
 const component = (fileName, type) => {
   switch (type) {
