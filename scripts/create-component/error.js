@@ -1,3 +1,5 @@
+const types = require("./types").join(" ");
+
 const errorMessage = (type, command = null) => {
   const commandsExpected = ["--props"].join(" ");
   let code;
@@ -19,16 +21,39 @@ const errorMessage = (type, command = null) => {
     case "propsAttribute":
       code = 4;
       message = `Command '${command}' invalid, the attribute ':' not found`;
-      resolve = `Try to pass the property in this format: 'prop:value'`;
+      resolve = `Try to pass the property in this format: 'prop:value' or 'prop?:value'`;
+      break;
+    case "propsSpecialChar":
+      code = 5;
+      message = `Command '${command}' invalid, don't use special characters`;
+      resolve = `Try to pass the property in this format: 'prop:value' or 'prop?:value'`;
+      break;
+    case "valueSpecialChar":
+      code = 6;
+      message = `Value '${command}' invalid`;
+      resolve = `Expected alphanumeric values or type values as: ${types}`;
+      break;
+    case "newValueSpecialChar":
+      code = 7;
+      message = `Value '${command}' invalid`;
+      resolve = `Expected alphanumeric values`;
+      break;
+    case "folderExists":
+      code = 8;
+      message = `Folder name already exists`;
+      resolve = "Write a different name for the folder";
       break;
     default:
       code = 1;
-      message = "Command not found.";
+      message = "Command not found";
       resolve = `Expected commands: ${commandsExpected}`;
       break;
   }
 
-  throw new Error(`Code ${code}. ${message}. \n Resolve: ${resolve}`);
+  process.on("exit", () => {
+    console.error(Error(`Code ${code}. ${message}. \n Resolve: ${resolve}`));
+  });
+  process.exit();
 };
 
 module.exports = errorMessage;
