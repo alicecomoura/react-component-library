@@ -1,6 +1,3 @@
-# react-component-library
-Uma estrutura inicial para biblioteca de componentes React usando Rollup, Typescript, SASS + Storybook
-
 <h2>Em desenvolvimento... 🚧 
 <br />
 Esse projeto consiste em uma constante linha de aprendizado
