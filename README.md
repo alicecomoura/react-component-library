@@ -12,3 +12,15 @@ Com isso, o projeto utiliza o <b>Rollup</b>, que é um bundler de módulos para 
 em algo maior e mais complexo, como é o caso de uma biblioteca. Além disso, utiliza também um dos superset do Javascript, 
 ou seja, o <i>queridíssimo</i> <b>TypeScript</b> para definir tipagem estática, garantindo assim maior segurança ao código dos componentes.
 
+
+<hr />
+
+1. Estrutura e configuração da biblioteca
+2. Criação dos modulos (em constante atualização)
+  - Design System
+  - Componentes
+  - Temas: Cores, Tipografias...
+3. Storybook (em constante atualização)
+4. CRA demo para usar os componentes da biblioteca
+  
+
