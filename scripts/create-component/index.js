@@ -1,8 +1,10 @@
 const fs = require("fs");
 const types = require("./types");
 const fileExtensions = require("./data");
-const nameComponent = process.argv[2];
+const lodash = require("lodash");
 const errorMessage = require("./error");
+const command = process.argv;
+const nameComponent = process.argv[2];
 
 try {
   const props =
@@ -17,88 +19,65 @@ try {
 }
 
 function createProps() {
-  const command = process.argv;
-  const props = [];
-  let newProps = [];
-  const propsIndex = command.findIndex((argument) => argument === "--props");
+  const props = command.filter((argument, index) => {
+    if (index < lodash.indexOf(command, "--props")) return null;
 
-  try {
-    command.map((argument, index) => {
-      if (index < propsIndex) return;
+    if (argument === "--props") {
+      !command[index + 1] && errorMessage("propsMissing");
+      return null;
+    }
 
-      if (argument === "--props") {
-        !command[index + 1] && errorMessage("propsMissing");
-        //Adicionar dicas pós mensagem erro para ajudar o usuário na resolução do problema
-
-        return;
-      }
-
-      props.push(argument);
-    });
-  } catch (e) {
-    console.error(e);
-  }
-  newProps = mappingProps(props);
-
-  newProps.map((newProp) => {
-    newProp.value = convertType(newProp);
+    return argument;
   });
+
+  const newProps = mapProps(props);
 
   return newProps;
 }
 
-function convertType(prop) {
-  const type = prop.value.map((type) =>
-    type.type !== undefined ? `"${type.value}"` : `${type}`
-  );
+function mapProps(props) {
+  const result = props.map((prop) => {
+    const regex = {
+      notAlphaNum: /[^A-Za-z0-9]/,
+      notOptionalKey: /^[a-z|A-Z|0-9]+[^?]\s?[?]{1}$/gm,
+    };
+    const props = prop.split(":");
+    const [key, value] = props;
 
-  const newType = type.join(" | ");
-  return newType;
-}
+    props.length !== 2 && errorMessage("invalidProp", prop);
 
-function mappingProps(props) {
-  const propsArray = [];
-  try {
-    props.map((prop) => {
-      propsArray.push(validateProperty(prop));
-    });
-  } catch (e) {
-    console.error(e);
-  }
-  return propsArray;
-}
+    key.match(regex.notAlphaNum)
+      ? key.match(regex.notOptionalKey)
+        ? null
+        : errorMessage("invalidProp", key)
+      : null;
 
-function validateProperty(prop) {
-  const propArray = prop.split(":");
-  const key = propArray[0];
-  const value = propArray[1];
-  if (!prop.match(/[A-Za-z0-9?]:[A-Za-z0-9]/)) {
-    if (prop.match(/[^\w\s]/)) return errorMessage("propsSpecialChar", prop);
-    return errorMessage("propsAttribute", prop);
-  }
+    const newValues = value.match(regex.notAlphaNum)
+      ? mapMultipleValues(value)
+      : [value];
 
-  const values = value.split(",");
+    return { prop: key, value: newValues.join(" | ") };
 
-  const newValues = [];
-  values.map((value) => {
-    const type = types.find((type) => value.startsWith(type));
+    function mapMultipleValues(value) {
+      const values = value.split(",");
 
-    newValues.push(type !== undefined ? getTypeValue(value, type) : value);
+      const newValues = values.map((value) => {
+        const newValue = types.map((type) => {
+          !value.startsWith(type) &&
+            value.match(regex.notAlphaNum) &&
+            errorMessage("valueSpecialChar", value);
+          return value.startsWith(type)
+            ? `'${lodash.replace(value, type, "")}'`
+            : value;
+        });
+        return `${newValue}`;
+      });
+
+      return newValues;
+    }
   });
 
-  function getTypeValue(value, type) {
-    let newValue = value.replace(type, "");
-
-    newValue.match(/[^\w\s,]/) && errorMessage("newValueSpecialChar", newValue);
-
-    newValue = newValue.match(/[,]/)
-      ? (newValue[0] === "," && errorMessage("newValueSpecialChar", newValue),
-        newValue.split(",")[0])
-      : newValue;
-
-    return { type: type, value: newValue };
-  }
-  return { prop: key, value: newValues };
+  return result;
 }
 
 function createFiles(folderPath, props) {
@@ -125,13 +104,13 @@ function createFiles(folderPath, props) {
 }
 
 function createFolder() {
-  const folderName = `./src/modules/design-system/components/${nameComponent}`;
+  const folderName = `./testing-lib/${nameComponent}`;
 
   try {
     if (!fs.existsSync(folderName)) {
       fs.mkdirSync(folderName);
     } else {
-      errorMessage("folderExists");
+      //errorMessage("folderExists");
     }
   } catch (err) {
     console.error(err);
@@ -145,6 +124,7 @@ function addProps(props) {
   switch (props) {
     case true:
       const props = createProps();
+      //Parei aqui \/
       createFiles(path, props);
       break;
     case false:
