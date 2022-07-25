@@ -8,7 +8,7 @@ const errorMessage = (type, command = null) => {
   switch (type) {
     case "invalidCommand":
       code = 2;
-      message = `Command '${command}' not found, is '${command}' a command valid?`;
+      message = `Command '${command}' not found. Is '${command}' a command valid?`;
       resolve = `Expected commands: ${commandsExpected}`;
 
       break;
@@ -25,7 +25,7 @@ const errorMessage = (type, command = null) => {
       break;
     case "propsSpecialChar":
       code = 5;
-      message = `Command '${command}' invalid, don't use special characters`;
+      message = `Command '${command}' invalid. Don't use special characters`;
       resolve = `Try to pass the property in this format: 'prop:value' or 'prop?:value'`;
       break;
     case "valueSpecialChar":
@@ -42,6 +42,16 @@ const errorMessage = (type, command = null) => {
       code = 8;
       message = `Folder name already exists`;
       resolve = "Write a different name for the folder";
+      break;
+    case "invalidProp":
+      code = 9;
+      message = `Property '${command}' invalid`;
+      resolve = `Try to pass the property in this format: 'prop:value' or 'prop?:value'`;
+      break;
+    case "invalidValue":
+      code = 10;
+      message = `Value '${command}' invalid. Don't use special characters`;
+      resolve = `Try to pass the property in this format: 'prop:value' or 'prop?:value'`;
       break;
     default:
       code = 1;
